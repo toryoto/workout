@@ -1,0 +1,38 @@
+{% if is_paginated %}
+    <!-- 左右の中央に配置 -->
+    <ul class="pagination" style="justify-content: center">
+        <!-- 前のページがある場合 -->
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link"
+                    href="?page={{ page_obj.previous_page_number }}"
+                    aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        {% endif %}
+        <!-- ページ数の表示 -->
+        {% for num in paginator.page_range %}
+            <!-- ページ番号が存在しない場合 -->
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <sapn class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{num}}">{{ num }}</a>
+            </li>
+            {% endif %}
+        {% endfor %}
+        <!-- 次ページへのリンク -->
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link"
+                    href="?page={{ page_obj.next_page_number }}"
+                    aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+{% endif %}

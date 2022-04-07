@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block title %}Registration Success{% endblock title %}
+
+    {% block contents %}
+    <h3>登録が完了しました。</h3>
+    <p><a href="{% url 'accounts:login' %}">ログインはこちら</a></p>
+    {% endblock contents %}

@@ -1,0 +1,117 @@
+
+
+.menu {
+    text-align: center;
+    margin-top: 10%;  
+}
+
+.menu a {
+    margin: 2%;
+}
+
+.post-container {
+    display: flex;
+}
+
+.index-right {
+    width: 100%;
+}
+
+.index-left {
+    text-align: center;
+    margin-left: 3%;
+    margin-top: 10%;
+}
+
+.post-main {
+    width: 50px;
+    height: 50px;
+    color: blue;
+}
+
+.detail-container {
+    display: flex;
+    margin-bottom: 3%;
+}
+
+.detail-right {
+    width: 50%;
+    word-wrap: break-word;
+}
+
+.detail-row {
+    text-align: center;
+}
+
+.detail-info {
+    padding: 1%;
+}
+
+.detail-content {
+    margin-top: 15%;
+    padding: 10%;
+}
+
+.comment {
+    color: red;
+    text-align: center;
+}
+
+.detail-button {
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+    margin-top: 8%;
+}
+
+a.btn {
+    color: black;
+    background-color: #808080;
+    border-bottom: 5px solid #808080;
+    border-radius: 10%;
+}
+
+a.btn:hover {
+    margin-top: 3px;
+    color: black;
+    background: #4D4D4D;
+    border-bottom: 2px solid #4D4D4D;
+}
+  
+a.btn--shadow {
+    -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}
+
+ul {
+    list-style: none;
+    margin: 0 8% 0 8%;
+}
+
+.list-content {
+    display: flex;
+    justify-content: left;
+}
+
+.list-title {
+    border-bottom: 3px solid;
+}
+
+.form {
+    text-align: center;
+}
+
+.data-image {
+    text-align: center;
+}
+
+@media screen and (max-width:1000px) {
+    .detail-container {
+        display: block;
+    }
+
+    .detail-right {
+        text-align: center;
+        width: 100%;
+    }
+}

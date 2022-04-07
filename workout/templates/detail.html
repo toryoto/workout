@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Detail{% endblock title %}
+
+    {% block header %}
+    <header class="masthead" style="background-image: url({% static 'assets/crossfit.jpg' %})">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="post-heading">
+                        <h1>{{ object.title }}</h1>
+                        <p class="meta detail-info">{{ object.posted_at }}に投稿</p>
+                        <p class="meta detail-info">内容：{{ object.category}}</p>
+                        <p class="meta detail-info">場所：{{ object.place }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    {% endblock header %}
+
+    {% block contents %}
+    <article>
+        <div class="detail-container container" style="width : 100%">
+            <div class="row detail-row detail-left">
+                <img src="{{ object.image1.url }}" style="width : 100%; height : 100%">
+            </div>
+            <div class="detail-right detail-row">
+                <div class="row">
+                    <p class="detail-content">{{ object.content|linebreaksbr }}</p>
+                </div>
+                <div class="row button-row">
+                    <p><a onclick="api_like()"><span id="like">3</span>Good</a></p>
+                </div>
+                <div class="detail-button">
+                    <a href="{% url 'workout:update' object.pk %}" class="btn btn--cubic btn--shadow">Edit</a>
+                    <a href="{% url 'workout:index' %}" class="btn btn--cubic btn--shadow">Back</a>
+                    {% if request.user == object.user %}
+                    <form method="POST"><a href="{% url 'workout:delete' object.pk %}" class="btn btn--cubic btn--shadow">Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div class="comment">
+
+        <div class="comment">
+            <h2>コメント一覧</h2>
+            {% for comment in workoutpost.comment_set.all %}
+            <div class="comment-text">
+              <p>{{ comment.text }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="comment-form">
+        <h2>コメント投稿</h2>
+        <!-- コメント作成用のURLを渡す -->
+        <form action="{% url 'workout:comment' workoutpost.pk %}" method="post">
+            {% csrf_token %}
+            {{ comment_form}}
+            <div>
+            <button type="submit">送信</button>
+            </div>
+        </form>
+
+    </div>
+{% endblock contents %}
+
+{% block extrahead %}
+<style media="screen">
+  .title {
+    font-size: 2rem;
+  }
+
+  .text {
+    margin-top: 30px;
+  }
+
+  .comment {
+    margin-top: 30px;
+  }
+
+  .comment-text {
+    margin-top: 20px;
+  }
+
+  label {
+    display: block;
+  }
+</style>
+{% endblock %}

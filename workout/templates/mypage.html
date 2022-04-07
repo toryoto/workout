@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Mypage{% endblock title %}
+
+    {% block header %}
+    <header class="masthead" style="background-image: url({% static 'assets/img/post-bg.jpg' %})">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="post-heading">
+                        {% if user.is_authenticated %}
+                            <div style="text-align:center">
+                                <h2>{{ user.username }}さんのマイページ</h2>
+                                {% if object_list.count == 0 %}
+                                    <p>{{ user.username }}さんの投稿はありません</p>
+                                {% else %}
+                                    <p>投稿<strong>{{ object_list.count }}</strong>件</p>
+                                {% endif %}
+                                <a href="{% url 'workout:post' %}" class="sign">投稿する</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    {% endblock header %}
+
+    <!-- Main Content-->
+    {% block contents %}
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                {% for record in object_list %}
+                    <!-- Post preview-->
+                    <div class="post-container post-preview">
+
+                        <div class="index-right">
+                            <a href="{% url 'workout:workout_detail' record.pk %}">
+                                <h2>{{ record.title }}</h2>
+                                <h3><span style="font-size : 16px">{{ record.content|truncatechars:30 }}</span></h3>
+                                <div class="post-image">
+                                    <img src="{{ record.image1.url }}" style="width : 100%; height : 100%">
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="index-left">
+                            <p>
+                                Posted by
+                                {% if request.user.id == record.user.id %}
+                                    <a href="{% url 'workout:mypage'%}">{{ record.user.username }}(your)</a>
+                                {% else %}
+                                    <a href="{% url 'workout:user_list' user=record.user.id %}">{{ record.user.username }}</a>／
+                                {% endif %}
+                                {{ record.posted_at }}に投稿／
+                                内容：
+                                {{ record.category}}／場所：
+                                {{ record.place }}／
+                                いいね
+                            </p>
+                        </div>
+
+                    </div>
+                <!-- Divider-->
+                <hr class="my-4" />
+                {% endfor %}
+                {% include "pagination.html" %}
+            </div>
+        </div>
+    </div>
+    {% endblock contents %}
+    

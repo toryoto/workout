@@ -1,0 +1,8 @@
+<form method="POST">
+<br>
+<p>削除してもよろしいですか？</p>
+{% csrf_token %}
+<button type="submit">
+削除
+</button>
+<a href="{% url 'workout:detail' object.pk %}" class="btn btn-secondary my-2">キャンセル</a>
